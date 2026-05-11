@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天津中考物理 · 2026预测题</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --blue: #1F4E79;
+  --light-bg: #F5F7FA;
+  --card-bg: #FFFFFF;
+  --accent: #C00000;
+  --green: #2E7D32;
+  --grey: #666;
+  --border: #DDD;
+  --correct: #E8F5E9;
+  --wrong: #FFEBEE;
+}
+
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  background: var(--light-bg);
+  color: #333;
+  line-height: 1.7;
+  padding-bottom: 80px;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, var(--blue), #2C6FAA);
+  color: #fff;
+  padding: 28px 20px 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,.15);
+}
+.header h1 { font-size: 22px; font-weight: 700; letter-spacing: 2px; }
+.header p { font-size: 13px; opacity: .85; margin-top: 4px; }
+.header .stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.header .stats span { opacity: .9; }
+.header .stats em { font-style: normal; font-weight: 700; }
+
+/* Nav tabs */
+.nav-bar {
+  display: flex;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 95px;
+  z-index: 99;
+}
+.nav-bar button {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--grey);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all .2s;
+  font-family: inherit;
+}
+.nav-bar button.active {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+}
+.nav-bar button .badge {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-size: 11px;
+  border-radius: 10px;
+  padding: 0 7px;
+  margin-left: 4px;
+  line-height: 18px;
+}
+
+/* Content */
+.content { max-width: 800px; margin: 0 auto; padding: 16px; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 18px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  border: 1px solid var(--border);
+  transition: border-color .2s;
+}
+.card.answered-correct { border-left: 4px solid var(--green); }
+.card.answered-wrong { border-left: 4px solid var(--accent); }
+.card.answered { border-left: 4px solid var(--blue); }
+
+.q-number {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 1px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+.q-type {
+  display: inline-block;
+  font-size: 11px;
+  color: #fff;
+  background: var(--accent);
+  padding: 1px 8px;
+  border-radius: 8px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.q-text {
+  font-size: 15px;
+  margin: 6px 0 12px;
+  line-height: 1.8;
+}
+.q-text .highlight { color: var(--accent); font-weight: 700; }
+.q-text .blank {
+  display: inline-block;
+  border-bottom: 2px solid var(--blue);
+  min-width: 60px;
+  padding: 0 6px;
+  text-align: center;
+  color: var(--blue);
+}
+.q-tag {
+  font-size: 11px;
+  color: var(--grey);
+  margin-bottom: 8px;
+}
+.q-tag span {
+  background: #E8EAF6;
+  padding: 1px 8px;
+  border-radius: 8px;
+  margin-right: 6px;
+}
+
+/* Options */
+.options { display: flex; flex-direction: column; gap: 6px; }
+.options label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all .15s;
+}
+.options label:hover { border-color: var(--blue); background: #F0F4FF; }
+.options label.selected {
+  border-color: var(--blue);
+  background: #E3EDFF;
+  font-weight: 600;
+}
+.options label.correct-answer {
+  border-color: var(--green);
+  background: var(--correct);
+}
+.options label.wrong-answer {
+  border-color: var(--accent);
+  background: var(--wrong);
+}
+.options input[type="radio"] { display: none; }
+.options .letter {
+  display: inline-flex;
+  width: 24px; height: 24px;
+  align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: #E8EAF6;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.options label.selected .letter { background: var(--blue); color: #fff; }
+.options label.correct-answer .letter { background: var(--green); color: #fff; }
+.options label.wrong-answer .letter { background: var(--accent); color: #fff; }
+
+/* Fill-blank input */
+.fill-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s;
+}
+.fill-input:focus { border-color: var(--blue); }
+.fill-input.correct { border-color: var(--green); background: var(--correct); }
+.fill-input.wrong { border-color: var(--accent); background: var(--wrong); }
+
+/* Feedback */
+.feedback {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: none;
+}
+.feedback.show { display: block; }
+.feedback.correct { background: var(--correct); color: #1B5E20; }
+.feedback.wrong { background: var(--wrong); color: #B71C1C; }
+.feedback .answer { font-weight: 700; }
+
+/* Buttons */
+.btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  justify-content: center;
+}
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .2s;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: #2C6FAA; }
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--blue);
+  color: var(--blue);
+}
+.btn-outline:hover { background: #E3EDFF; }
+.btn-danger { background: var(--accent); color: #fff; }
+.btn-danger:hover { background: #D32F2F; }
+.btn-success { background: var(--green); color: #fff; }
+.btn-success:hover { background: #388E3C; }
+.btn-small { padding: 6px 14px; font-size: 12px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Score section */
+.score-box {
+  text-align: center;
+  padding: 30px 20px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  margin: 20px 0;
+}
+.score-box .big { font-size: 48px; font-weight: 700; color: var(--blue); }
+.score-box .label { font-size: 14px; color: var(--grey); margin-top: 4px; }
+.score-bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+.score-bar .fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), #4A90D9);
+  border-radius: 4px;
+  transition: width .5s;
+}
+
+/* Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.modal h3 { margin-bottom: 12px; color: var(--blue); }
+.modal textarea {
+  width: 100%;
+  height: 120px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 12px;
+  resize: vertical;
+}
+.modal .btn-row { margin-top: 12px; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 300;
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--grey);
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header h1 { font-size: 18px; }
+  .header .stats { gap: 12px; font-size: 12px; }
+  .nav-bar button { font-size: 13px; }
+  .content { padding: 12px; }
+  .card { padding: 14px 12px; }
+  .q-text { font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>天津中考物理 · 2026预测题</h1>
+  <p>基于近五年真题规律 + 新教材变化 · 实时存档</p>
+  <div class="stats" id="headerStats">
+    <span>共 <em id="totalCount">0</em> 题</span>
+    <span>已答 <em id="answeredCount">0</em></span>
+    <span>正确 <em id="correctCount">0</em></span>
+    <span>正确率 <em id="accuracy">0%</em></span>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <button class="active" data-tab="choice" onclick="switchTab('choice')">选择题 <span class="badge" id="choiceBadge">0</span></button>
+  <button data-tab="fill" onclick="switchTab('fill')">填空题 <span class="badge" id="fillBadge">0</span></button>
+  <button data-tab="review" onclick="switchTab('review')">答题报告</button>
+</div>
+
+<div class="content">
+  <!-- 选择题 -->
+  <div class="section active" id="section-choice"></div>
+
+  <!-- 填空题 -->
+  <div class="section" id="section-fill"></div>
+
+  <!-- 答题报告 -->
+  <div class="section" id="section-review">
+    <div class="score-box" id="scoreBox">
+      <div class="big" id="scorePct">0%</div>
+      <div class="label">总正确率</div>
+      <div class="score-bar"><div class="fill" id="scoreBarFill" style="width:0%"></div></div>
+      <div style="font-size:13px;color:var(--grey)"><span id="scoredN">0</span> / <span id="scoredTotal">0</span> 题正确</div>
+    </div>
+
+    <div id="reviewList"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-success" onclick="exportData()">导出答题情况 (JSON)</button>
+      <button class="btn btn-outline" onclick="document.getElementById('importInput').click()">导入答题情况</button>
+      <input type="file" id="importInput" accept=".json" style="display:none" onchange="importData(event)">
+      <button class="btn btn-danger" onclick="clearAll()">清空所有记录</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ======== QUESTION BANK ========
+// 选择题 (30题)
+const CHOICE_QUESTIONS = [
+  {
+    id: "c01", tag: "声学",
+    question: '声音的三特性中，如图所示为编钟、二胡和古筝演奏，听众能区分它们主要是依据（　）',
+    options: ["音调", "响度", "音色", "频率"],
+    answer: 2,
+    explanation: '不同乐器发出的声音音色不同，音色是由发声体本身材料、结构决定的。每年第1题必考。'
+  },
+  {
+    id: "c02", tag: "热学",
+    question: '"二十四节气"是中华智慧的结晶。下列节气中涉及物态变化，属于熔化的是（　）',
+    options: ["大雪——雪花飘飘", "白露——露珠晶莹", "雨水——冰雪消融", "霜降——霜挂枝头"],
+    answer: 2,
+    explanation: '冰雪消融是固态冰变为液态水，属于熔化。露是液化，霜是凝华，雪是凝华/水蒸气直接凝华。'
+  },
+  {
+    id: "c03", tag: "光学",
+    question: '如图所示，从水面斜看向水中一条鱼，看到的鱼的位置比实际位置（　）',
+    options: ["偏浅", "偏深", "不变", "无法判断"],
+    answer: 0,
+    explanation: '光从水中斜射入空气中时，折射角大于入射角，人逆着折射光看过去，觉得鱼变浅了（位置偏上）。'
+  },
+  {
+    id: "c04", tag: "力学",
+    question: '下列估测最接近实际的是（　）',
+    options: ["人体正常体温约36.5℃", "一节新干电池电压为36V", "中学生正常步行速度约5m/s", "天津地区大气压约1×10³Pa"],
+    answer: 0,
+    explanation: '人体温约36.5℃；干电池电压1.5V不是36V；步行速度约1.1m/s不是5m/s；大气压约1×10⁵Pa不是10³Pa。第4题估测题常客。'
+  },
+  {
+    id: "c05", tag: "电学",
+    question: '关于安全用电，下列说法正确的是（　）【注意新教材术语】',
+    options: ["更换灯泡前应断开电源", "用湿手拔插头更安全", "相线（原火线）和中性线（原零线）可以短接", "发现有人触电应立即用手拉开"],
+    answer: 0,
+    explanation: '更换灯泡必须断开电源。用湿手拔插头易触电。相线与中性线短接会造成短路。有人触电应先断电，不可用手拉。注意新教材术语：火线→相线，零线→中性线。'
+  },
+  {
+    id: "c06", tag: "力学",
+    question: '用吸管喝饮料时，饮料被吸上来是因为（　）',
+    options: ["吸管对饮料有吸引力", "大气压的作用", "液体压强的作用", "分子间引力的作用"],
+    answer: 1,
+    explanation: '吸饮料时，口腔内气压减小，大气压将饮料压入口中。这是大气压的典型应用，天津卷高频考点。'
+  },
+  {
+    id: "c07", tag: "电学",
+    question: '高铁列车在制动时，电动机可以变为发电机，将机械能转化为电能。这一现象利用的原理是（　）',
+    options: ["电流的磁效应", "电磁感应", "通电导体在磁场中受力", "磁极间的相互作用"],
+    answer: 1,
+    explanation: '发电机利用电磁感应原理（闭合电路的部分导体做切割磁感线运动产生感应电流）。电动机利用通电导体在磁场中受力。2025年真题第7题。'
+  },
+  {
+    id: "c08", tag: "力学",
+    question: '关于惯性，下列说法正确的是（　）',
+    options: ["物体速度越大，惯性越大", "只有静止的物体才有惯性", "一切物体在任何情况下都有惯性", "物体受力时就没有惯性了"],
+    answer: 2,
+    explanation: '惯性是物体的固有属性，只与质量有关，与速度、运动状态、是否受力无关。质量越大惯性越大。'
+  },
+  {
+    id: "c09", tag: "力学",
+    question: '用滑轮组提升重物时，下列做法能提高机械效率的是（　）',
+    options: ["增加提升高度", "增加物重", "增加动滑轮重", "增加提升速度"],
+    answer: 1,
+    explanation: 'η = W有/W总，增加物重可增大W有，而额外功基本不变，故效率提高。增加动滑轮重会增加额外功，降低效率。第10题/第22题高频。'
+  },
+  {
+    id: "c10", tag: "光学",
+    question: '凸透镜成像规律中，当物距u = 30cm，像距v = 15cm时，下列说法正确的是（　）',
+    options: ["成倒立放大的实像", "成倒立缩小的实像", "成正立放大的虚像", "成倒立等大的实像"],
+    answer: 1,
+    explanation: 'u > v，且u=30cm、v=15cm，说明u > 2f而f < v < 2f，成倒立缩小的实像（照相机原理）。凸透镜成像每年必考！'
+  },
+  {
+    id: "c11", tag: "电学",
+    question: '如图所示电路，当滑动变阻器滑片P向右移动时，电流表和电压表的示数变化为（　）',
+    options: ["电流表示数变大，电压表示数变大", "电流表示数变小，电压表示数变小", "电流表示数变小，电压表示数变大", "电流表示数变大，电压表示数变小"],
+    answer: 1,
+    explanation: '滑片右移→总电阻增大→电流减小（电流表示数减小）；定值电阻两端电压U=IR，I减小则U减小（电压表示数减小）。动态电路分析多选第12题常客。'
+  },
+  {
+    id: "c12", tag: "力学",
+    question: '将同一物体分别放入水和盐水中，物体漂浮在水面上，而在盐水中悬浮。则物体受到的浮力（　）',
+    options: ["在水中更大", "在盐水中更大", "一样大", "无法比较"],
+    answer: 2,
+    explanation: '漂浮和悬浮时，F浮 = G物，同一物体G相同，所以浮力相等。但盐水的密度更大，排开液体的体积更小。'
+  },
+  {
+    id: "c13", tag: "热学",
+    question: '汽油机的一个工作循环中，将内能转化为机械能的是（　）',
+    options: ["吸气冲程", "压缩冲程", "做功冲程", "排气冲程"],
+    answer: 2,
+    explanation: '做功冲程中，燃气膨胀推动活塞做功，内能转化为机械能。压缩冲程是机械能转化为内能。'
+  },
+  {
+    id: "c14", tag: "电学",
+    question: '电饭锅有两挡：加热和保温。已知R1 > R2，要实现高温挡，应（　）',
+    options: ["只闭合R1", "只闭合R2", "R1和R2串联", "R1和R2并联"],
+    answer: 3,
+    explanation: 'P = U²/R，电压U相同时，总电阻越小功率越大。R₁与R₂并联时总电阻最小，功率最大，为高温挡。多挡位计算是压轴题方向。'
+  },
+  {
+    id: "c15", tag: "声学",
+    question: '下列关于声音的说法正确的是（　）',
+    options: ["声音在真空中传播速度最快", "响度与发声体振动的频率有关", "音调由发声体振动的频率决定", "只要物体振动，人就能听到声音"],
+    answer: 2,
+    explanation: '音调由频率决定（频率高音调高）；响度由振幅决定。真空不能传声，人耳听不到超声波和次声波。'
+  },
+  {
+    id: "c16", tag: "电磁学",
+    question: '关于通电螺线管，下列说法正确的是（　）',
+    options: ["电流方向改变时，螺线管的N极方向不变", "螺线管外部的磁场与条形磁体相似", "螺线管内部没有磁场", "匝数越多磁性越弱"],
+    answer: 1,
+    explanation: '通电螺线管外部磁场与条形磁体相似。电流方向改变则N极方向改变。匝数越多、电流越大，磁性越强。'
+  },
+  {
+    id: "c17", tag: "力学",
+    question: '如图，同一小球先后从同一斜面的不同高度滚下，撞击水平面上的同一木块。这是为了探究（　）',
+    options: ["动能与质量的关系", "动能与速度的关系", "重力势能与高度的关系", "惯性大小与速度的关系"],
+    answer: 1,
+    explanation: '同一小球质量相同，不同高度滚下速度不同，探究动能与速度的关系。这是课本经典实验。'
+  },
+  {
+    id: "c18", tag: "电学",
+    question: '标有"220V 100W"和"220V 40W"的两盏灯并联在220V电路中，则（　）',
+    options: ["100W灯更亮", "40W灯更亮", "一样亮", "两灯都不亮"],
+    answer: 0,
+    explanation: '并联在额定电压下，两灯均正常发光。P=UI，100W灯的功率大于40W灯，故100W灯更亮。'
+  },
+  {
+    id: "c19", tag: "光学",
+    question: '下列现象中，由光的直线传播形成的是（　）',
+    options: ["海市蜃楼", "水中倒影", "日晷的影子", "雨后彩虹"],
+    answer: 2,
+    explanation: '日晷的影子是光的直线传播形成的。水中倒影是光的反射；海市蜃楼是光的折射；彩虹是光的色散（折射）。2024/2022真题均考过。'
+  },
+  {
+    id: "c20", tag: "力学",
+    question: '用手托着物理课本静止不动，下列属于平衡力的是（　）',
+    options: ["手对书的支持力和书的重力", "手对书的支持力和书对手的压力", "书的重力和书对桌面的压力", "手对书的支持力和书对地球的引力"],
+    answer: 0,
+    explanation: '平衡力作用在同一物体上。手对书的支持力与书的重力都作用在书上，大小相等方向相反，是平衡力。B选项是相互作用力。'
+  },
+  {
+    id: "c21", tag: "热学",
+    question: '质量相等的铁块和水吸收相同的热量后（c铁 < c水），则（　）',
+    options: ["铁块升高的温度更高", "水升高的温度更高", "两者升高的温度相同", "无法比较"],
+    answer: 0,
+    explanation: 'Q = cmΔt，Q和m相同，c越小则Δt越大。c铁 < c水，所以铁块升高的温度更高。比热容计算是2026新教材重点。'
+  },
+  {
+    id: "c22", tag: "电学",
+    question: '下列做法符合安全用电原则的是（　）【新教材：注意术语更新】',
+    options: ["将保护线（原地线）接在自来水管上", "多个大功率电器共用一个插座", "更换灯泡前先断开相线（原火线）", "保险丝熔断后用铜丝代替"],
+    answer: 2,
+    explanation: '更换灯泡应断开相线（火线）。保护线不能接在水管上。大功率电器不可共用插座。保险丝熔断不能用铜丝代替（铜丝熔点高不会熔断）。'
+  },
+  {
+    id: "c23", tag: "力学",
+    question: '一个质量为60kg的人站在水平地面上，每只脚与地面的接触面积为200cm²，则人对地面的压强为（g取10N/kg）（　）',
+    options: ["1.5×10⁴Pa", "3×10⁴Pa", "1.5×10³Pa", "3×10³Pa"],
+    answer: 0,
+    explanation: 'F = G = mg = 60×10 = 600N。S = 2×200×10⁻⁴ = 0.04m²。p = F/S = 600/0.04 = 15000 = 1.5×10⁴Pa。注意双脚着地面积要×2。'
+  },
+  {
+    id: "c24", tag: "电磁学",
+    question: '发电机工作时，发生的能量转化主要是（　）',
+    options: ["电能转化为机械能", "机械能转化为电能", "电能转化为化学能", "化学能转化为电能"],
+    answer: 1,
+    explanation: '发电机利用电磁感应原理，将机械能转化为电能。电动机相反，将电能转化为机械能。第7题/第14题高频考点。'
+  },
+  {
+    id: "c25", tag: "力学",
+    question: '一个重为2N的物体，用手将其浸没在水中时，弹簧测力计示数为1.2N，则该物体受到的浮力为（　）',
+    options: ["0.8N", "1.2N", "2N", "3.2N"],
+    answer: 0,
+    explanation: 'F浮 = G - F拉 = 2N - 1.2N = 0.8N。阿基米德原理与弹簧测力计结合是天津卷经典考法。'
+  },
+  {
+    id: "c26", tag: "热学",
+    question: '下列关于物态变化的说法正确的是（　）',
+    options: ["春天冰雪消融是液化现象", "夏天吃冰棍解暑利用了熔化吸热", "秋天早晨的露珠是凝华形成的", "冬天窗玻璃上的冰花是凝固形成的"],
+    answer: 1,
+    explanation: '冰棍熔化吸收热量，达到解暑效果。冰雪消融是熔化，露珠是液化，窗花是凝华。第2题物态变化每年必考。'
+  },
+  {
+    id: "c27", tag: "电学",
+    question: '某用电器正常工作时的电阻为10Ω，通过的电流为0.5A，则该用电器两端的电压为（　）',
+    options: ["0.05V", "5V", "20V", "50V"],
+    answer: 1,
+    explanation: '由欧姆定律I = U/R得U = IR = 0.5×10 = 5V。基础欧姆定律计算必须熟练掌握。'
+  },
+  {
+    id: "c28", tag: "光学",
+    question: '近视眼成像于视网膜（　），应佩戴（　）透镜矫正',
+    options: ["前方，凹", "前方，凸", "后方，凹", "后方，凸"],
+    answer: 0,
+    explanation: '近视眼晶状体曲度过大，成像在视网膜前方，用凹透镜矫正。远视眼成像在视网膜后方，用凸透镜矫正。'
+  },
+  {
+    id: "c29", tag: "力学",
+    question: '如图所示，F₁l₁ = F₂l₂是杠杆的（　）',
+    options: ["平衡条件", "省力条件", "费力条件", "省距离条件"],
+    answer: 0,
+    explanation: 'F₁l₁ = F₂l₂是杠杆平衡条件。省力杠杆：l₁ > l₂，F₁ < F₂，但费距离。费力杠杆相反。第19题填空难点。'
+  },
+  {
+    id: "c30", tag: "综合",
+    question: '电热饮水机的热效率η = Q吸/W中，Q吸代表（　）',
+    options: ["消耗的电能", "水吸收的热量", "电流做的功", "放出的总热量"],
+    answer: 1,
+    explanation: '热效率η = Q吸/W = 水吸收的热量/消耗的电能（电流做的功）。第20题电热综合计算的核心公式。'
+  }
+];
+
+// 填空题 (10题)
+const FILL_QUESTIONS = [
+  {
+    id: "f01", tag: "电磁学",
+    question: '我国自主研制的北斗导航系统利用________（选填"电磁波"或"超声波"）传递信息，以地球为参照物，同步卫星是________的。',
+    answers: ["电磁波", "静止"],
+    acceptable: [["电磁波"], ["静止", "不动"]],
+    explanation: '北斗卫星利用电磁波传递信息（超声波不能在真空中传播）。同步卫星相对地球位置不变，是静止的。第14题常客。'
+  },
+  {
+    id: "f02", tag: "光学",
+    question: '小芳站在穿衣镜前1m处，镜中的像距她________m。若她远离平面镜，像的大小________（选填"变大""变小"或"不变"）。',
+    answers: ["2", "不变"],
+    acceptable: [["2", "2m"], ["不变"]],
+    explanation: '平面镜成像：像距等于物距，所以像距镜1m，像距人2m。像与物等大，所以大小不变。第15题高频考点。'
+  },
+  {
+    id: "f03", tag: "力学",
+    question: '拉弓射箭时，弓的弹性势能转化为箭的________能。射出的箭由于________继续向前运动。',
+    answers: ["动", "惯性"],
+    acceptable: [["动", "动能", "机械"], ["惯性"]],
+    explanation: '弓的弹性势能转化为箭的动能（或机械能）。箭离开弓后由于惯性继续向前运动。第16题机械能转化+惯性。'
+  },
+  {
+    id: "f04", tag: "热学",
+    question: '汽油机的压缩冲程将________能转化为________能，该冲程中气缸内气体的温度________（选填"升高""降低"）。',
+    answers: ["机械", "内", "升高"],
+    acceptable: [["机械", "机械能"], ["内", "内能"], ["升高", "上升", "变高"]],
+    explanation: '压缩冲程活塞压缩气体做功，机械能转化为内能，气体内能增加温度升高。做功冲程相反，内能转化为机械能。'
+  },
+  {
+    id: "f05", tag: "电学",
+    question: '当丝绸和玻璃棒摩擦时，玻璃棒因________（选填"得到"或"失去"）电子而带________电。',
+    answers: ["失去", "正"],
+    acceptable: [["失去"], ["正", "正电荷"]],
+    explanation: '丝绸摩擦玻璃棒，玻璃棒失去电子带正电，丝绸得到电子带负电。第18题摩擦起电常考。'
+  },
+  {
+    id: "f06", tag: "力学",
+    question: '使用动滑轮可以省________力，但不能改变力的________。用动滑轮将重物提升2m，绳子自由端需移动________m。',
+    answers: ["一", "方向", "4"],
+    acceptable: [["一", "一半", "1/2", "一半的"], ["方向"], ["4", "4m"]],
+    explanation: '动滑轮省一半力，但不能改变力的方向。动滑轮绳子自由端移动距离s = 2h = 2×2 = 4m。'
+  },
+  {
+    id: "f07", tag: "力学",
+    question: '一艘轮船从长江驶入大海，它受到的浮力________（选填"变大""变小"或"不变"），船身会________（选填"上浮"或"下沉"）一些。',
+    answers: ["不变", "上浮"],
+    acceptable: [["不变"], ["上浮", "浮起", "上升"]],
+    explanation: '轮船漂浮，F浮 = G，重力不变所以浮力不变。海水密度大于江水，V排 = F浮/ρ液g，ρ液增大V排减小，船身上浮一些。'
+  },
+  {
+    id: "f08", tag: "电学",
+    question: '家庭电路中，各用电器之间是________联的。电能表的单位是________。',
+    answers: ["并", "kW·h"],
+    acceptable: [["并", "并联"], ["kW·h", "千瓦时", "度"]],
+    explanation: '家庭电路各用电器并联，互不影响。电能表单位是千瓦时（kW·h），俗称度。新教材注意：相线、中性线、保护线术语更新。'
+  },
+  {
+    id: "f09", tag: "力学",
+    question: '【新教材新增】同一直线上两个力F₁=10N、F₂=6N，方向相同，则合力大小为________N；若方向相反，则合力大小为________N，方向与________（选填"较大的"）力相同。',
+    answers: ["16", "4", "较大的"],
+    acceptable: [["16", "16N"], ["4", "4N"], ["较大的", "较大", "大"]],
+    explanation: '同向：F合 = F₁ + F₂ = 10+6 = 16N。反向：F合 = |F₁-F₂| = 4N，方向与较大的力（F₁）相同。这是新教材新增内容，2026年极有可能考！'
+  },
+  {
+    id: "f10", tag: "光学",
+    question: '小明在做凸透镜成像实验，当蜡烛距透镜30cm时，在光屏上得到一个倒立缩小的实像，则该凸透镜的焦距f的取值范围是________cm。（用不等式表示）',
+    answers: ["f < 15"],
+    acceptable: [["f<15", "f < 15", "f＜15", "小于15", "0<f<15", "0＜f＜15"]],
+    explanation: '成倒立缩小的实像时，u > 2f，即30 > 2f，所以f < 15cm（且f > 0）。凸透镜焦距判断每年必考，注意取值范围！'
+  }
+];
+
+// ======== STATE ========
+let state = {
+  choice: {},  // { id: selectedIndex }
+  fill: {}     // { id: userInput }
+};
+let loading = true;
+
+// ======== API HELPERS ========
+async function apiLoad() {
+  const res = await fetch('/api/load');
+  return await res.json();
+}
+
+async function apiSave(data) {
+  await fetch('/api/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+}
+
+async function apiClear() {
+  await fetch('/api/clear', { method: 'POST' });
+}
+
+// ======== LOAD / SAVE ========
+async function loadState() {
+  try {
+    const data = await apiLoad();
+    state.choice = data.choice || {};
+    state.fill = data.fill || {};
+    showToast('已从 答题记录.json 加载答题数据');
+  } catch(e) {
+    // If server not running, try direct fetch from file (file:// protocol)
+    try {
+      const res = await fetch('./答题记录.json');
+      if (res.ok) {
+        const data = await res.json();
+        state.choice = data.choice || {};
+        state.fill = data.fill || {};
+        showToast('已从本地JSON加载');
+      }
+    } catch(e2) {
+      state = { choice: {}, fill: {} };
+      showToast('未找到答题记录，已从头开始');
+    }
+  }
+  loading = false;
+}
+
+async function saveState() {
+  updateStats();
+  try {
+    await apiSave(state);
+  } catch(e) {
+    // Silent fail - server might not be running
+  }
+}
+
+function exportData() {
+  const data = {
+    exportedAt: new Date().toISOString(),
+    choiceAnswers: {},
+    fillAnswers: {}
+  };
+
+  for (const [id, ans] of Object.entries(state.choice)) {
+    const q = CHOICE_QUESTIONS.find(q => q.id === id);
+    if (!q) continue;
+    data.choiceAnswers[id] = {
+      question: q.question.substring(0, 40) + '…',
+      selected: ans,
+      correct: q.answer,
+      isCorrect: ans === q.answer,
+      tag: q.tag
+    };
+  }
+
+  for (const [id, ans] of Object.entries(state.fill)) {
+    const q = FILL_QUESTIONS.find(q => q.id === id);
+    if (!q) continue;
+    data.fillAnswers[id] = {
+      question: q.question.substring(0, 40) + '…',
+      input: ans,
+      correct: q.answers,
+      isCorrect: checkFillAnswer(id, ans)
+    };
+  }
+
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `天津物理_答题记录_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('导出成功！可发送给老师查看');
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.choice) {
+        for (const [id, val] of Object.entries(data.choice)) {
+          state.choice[id] = val;
+        }
+      }
+      if (data.fill) {
+        for (const [id, val] of Object.entries(data.fill)) {
+          state.fill[id] = val;
+        }
+      }
+      await saveState();
+      renderAll();
+      showToast('导入成功！');
+    } catch(e) {
+      showToast('导入失败：文件格式不正确');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+async function clearAll() {
+  if (!confirm('确定要清空所有答题记录吗？此操作将删除 JSON 文件中的记录！')) return;
+  state = { choice: {}, fill: {} };
+  try {
+    await apiClear();
+  } catch(e) {}
+  renderAll();
+  showToast('已清空所有记录');
+}
+
+// ======== CHECK FUNCTIONS ========
+function checkFillAnswer(id, input) {
+  const q = FILL_QUESTIONS.find(q => q.id === id);
+  if (!q || !input) return false;
+  const parts = input.trim().split(/[,，、\s]+/).filter(Boolean);
+  if (parts.length !== q.acceptable.length) return false;
+  return parts.every((part, i) =>
+    q.acceptable[i].some(acc => acc === part)
+  );
+}
+
+// ======== RENDER ========
+function renderChoices() {
+  const container = document.getElementById('section-choice');
+  let html = '';
+  html += '<div class="btn-row"><button class="btn btn-outline btn-small" onclick="renderChoices()">刷新题目</button></div>';
+
+  CHOICE_QUESTIONS.forEach((q, idx) => {
+    const saved = state.choice[q.id];
+    const isAnswered = saved !== undefined;
+    const isCorrect = isAnswered && saved === q.answer;
+    let cardClass = 'card';
+    if (isAnswered) cardClass += isCorrect ? ' answered-correct' : ' answered-wrong';
+
+    html += `<div class="${cardClass}" id="card-${q.id}">
+      <div>
+        <span class="q-number">${idx + 1}</span>
+        <span class="q-type">选择题</span>
+      </div>
+      <div class="q-tag"><span>${q.tag}</span></div>
+      <div class="q-text">${q.question}</div>
+      <div class="options">`;
+
+    const letters = ['A', 'B', 'C', 'D'];
+    q.options.forEach((opt, oi) => {
+      let optClass = '';
+      if (isAnswered) {
+        if (oi === q.answer) optClass = ' correct-answer';
+        if (oi === saved && oi !== q.answer) optClass = ' wrong-answer';
+      } else if (oi === saved) {
+        optClass = ' selected';
+      }
+      html += `<label class="opt-item${optClass}" onclick="selectChoice('${q.id}', ${oi})">
+        <input type="radio" name="${q.id}" ${oi === saved ? 'checked' : ''}>
+        <span class="letter">${letters[oi]}</span>
+        <span>${opt}</span>
+      </label>`;
+    });
+
+    html += `</div>`;
+
+    if (isAnswered) {
+      const isRight = saved === q.answer;
+      html += `<div class="feedback show ${isRight ? 'correct' : 'wrong'}">
+        ${isRight ? '✅ 正确！' : '❌ 错误'}
+        <br><span class="answer">正确答案：${q.options[q.answer]}</span>
+        <br>${q.explanation}
+      </div>`;
+    }
+
+    html += `</div>`;
+  });
+
+  container.innerHTML = html;
+  updateBadge('choiceBadge', Object.keys(state.choice).length, CHOICE_QUESTIONS.length);
+}
+
+function renderFill() {
+  const container = document.getElementById('section-fill');
+  let html = '';
+
+  FILL_QUESTIONS.forEach((q, idx) => {
+    const saved = state.fill[q.id] || '';
+    const isAnswered = !!saved.trim();
+    const isCorrect = isAnswered && checkFillAnswer(q.id, saved);
+    let cardClass = 'card';
+    if (isAnswered) cardClass += isCorrect ? ' answered-correct' : ' answered-wrong';
+
+    html += `<div class="${cardClass}" id="card-${q.id}">
+      <div>
+        <span class="q-number">${idx + 1}</span>
+        <span class="q-type">填空题</span>
+      </div>
+      <div class="q-tag"><span>${q.tag}</span></div>
+      <div class="q-text">${q.question}</div>
+      <input class="fill-input${isAnswered ? (isCorrect ? ' correct' : ' wrong') : ''}"
+             id="input-${q.id}"
+             type="text"
+             value="${saved}"
+             placeholder="请输入答案，多空请用空格或逗号分隔"
+             oninput="onFillInput('${q.id}')">`;
+
+    if (isAnswered) {
+      html += `<div class="feedback show ${isCorrect ? 'correct' : 'wrong'}">
+        ${isCorrect ? '✅ 正确！' : '❌ 错误'}
+        <br><span class="answer">正确答案：${q.answers.join('，')}</span>
+        <br>${q.explanation}
+      </div>`;
+    }
+
+    html += `</div>`;
+  });
+
+  container.innerHTML = html;
+  updateBadge('fillBadge', Object.keys(state.fill).length, FILL_QUESTIONS.length);
+}
+
+function renderReview() {
+  const totalChoice = CHOICE_QUESTIONS.length;
+  const totalFill = FILL_QUESTIONS.length;
+  const total = totalChoice + totalFill;
+  let answered = 0;
+  let correct = 0;
+
+  const choiceCorrect = Object.entries(state.choice).filter(([id, ans]) => {
+    const q = CHOICE_QUESTIONS.find(q => q.id === id);
+    return q && ans === q.answer;
+  }).length;
+
+  const fillCorrect = Object.entries(state.fill).filter(([id, ans]) => {
+    return checkFillAnswer(id, ans);
+  }).length;
+
+  const choiceAnswered = Object.keys(state.choice).length;
+  const fillAnswered = Object.keys(state.fill).length;
+  answered = choiceAnswered + fillAnswered;
+  correct = choiceCorrect + fillCorrect;
+
+  const pct = answered > 0 ? Math.round(correct / answered * 100) : 0;
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('scoreBarFill').style.width = pct + '%';
+  document.getElementById('scoredN').textContent = correct;
+  document.getElementById('scoredTotal').textContent = answered;
+
+  // Detail list
+  let html = '<h3 style="color:var(--blue);margin:16px 0 8px">选择题详情</h3>';
+  let hasChoice = false;
+  CHOICE_QUESTIONS.forEach((q, idx) => {
+    const saved = state.choice[q.id];
+    if (saved === undefined) return;
+    hasChoice = true;
+    const isCorrect = saved === q.answer;
+    html += `<div class="card ${isCorrect ? 'answered-correct' : 'answered-wrong'}">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span><span class="q-number">${idx + 1}</span> ${q.question.substring(0, 40)}…</span>
+        <span style="font-weight:700;${isCorrect ? 'color:var(--green)' : 'color:var(--accent)'}">
+          ${isCorrect ? '✓' : '✗'} ${q.options[saved]} ${isCorrect ? '' : '→ ' + q.options[q.answer]}
+        </span>
+      </div>
+    </div>`;
+  });
+  if (!hasChoice) html += '<p style="color:var(--grey);text-align:center;padding:12px">暂无选择题记录</p>';
+
+  html += '<h3 style="color:var(--blue);margin:16px 0 8px">填空题详情</h3>';
+  let hasFill = false;
+  FILL_QUESTIONS.forEach((q, idx) => {
+    const saved = state.fill[q.id];
+    if (!saved || !saved.trim()) return;
+    hasFill = true;
+    const isCorrect = checkFillAnswer(q.id, saved);
+    html += `<div class="card ${isCorrect ? 'answered-correct' : 'answered-wrong'}">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span><span class="q-number">${idx + 1}</span> ${q.question.substring(0, 40)}…</span>
+        <span style="font-weight:700;${isCorrect ? 'color:var(--green)' : 'color:var(--accent)'}">
+          ${isCorrect ? '✓' : '✗'} 你的:${saved} ${isCorrect ? '' : '→ ' + q.answers.join(' / ')}
+        </span>
+      </div>
+    </div>`;
+  });
+  if (!hasFill) html += '<p style="color:var(--grey);text-align:center;padding:12px">暂无填空题记录</p>';
+
+  document.getElementById('reviewList').innerHTML = html;
+  updateStats();
+}
+
+function renderAll() {
+  renderChoices();
+  renderFill();
+  renderReview();
+  updateStats();
+}
+
+// ======== EVENTS ========
+async function selectChoice(id, index) {
+  state.choice[id] = index;
+  await saveState();
+  renderChoices();
+  renderReview();
+}
+
+async function onFillInput(id) {
+  const input = document.getElementById('input-' + id);
+  if (input) {
+    state.fill[id] = input.value;
+    await saveState();
+    renderReview();
+  }
+  // Show feedback after input (debounced)
+  clearTimeout(window._fillTimer);
+  window._fillTimer = setTimeout(() => {
+    renderFill();
+    renderReview();
+  }, 600);
+}
+
+// ======== TAB SWITCHING ========
+function switchTab(tab) {
+  document.querySelectorAll('.nav-bar button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+  document.getElementById('section-' + tab).classList.add('active');
+
+  if (tab === 'review') renderReview();
+}
+
+// ======== STATS ========
+function updateStats() {
+  const choiceDone = Object.keys(state.choice).length;
+  const fillDone = Object.keys(state.fill).filter(id => state.fill[id].trim()).length;
+  const answered = choiceDone + fillDone;
+  const total = CHOICE_QUESTIONS.length + FILL_QUESTIONS.length;
+
+  const choiceCorrect = Object.entries(state.choice).filter(([id, ans]) => {
+    const q = CHOICE_QUESTIONS.find(q => q.id === id);
+    return q && ans === q.answer;
+  }).length;
+  const fillCorrect = Object.entries(state.fill).filter(([id, ans]) => {
+    return checkFillAnswer(id, ans);
+  }).length;
+  const correct = choiceCorrect + fillCorrect;
+
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('answeredCount').textContent = answered;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('accuracy').textContent = answered > 0 ? Math.round(correct / answered * 100) + '%' : '0%';
+}
+
+function updateBadge(id, done, total) {
+  document.getElementById(id).textContent = done + '/' + total;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ======== INIT ========
+(async function init() {
+  await loadState();
+  renderAll();
+  updateStats();
+})();
+</script>
+</body>
+</html>
